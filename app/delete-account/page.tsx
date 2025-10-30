@@ -26,7 +26,7 @@ export default function DeleteAccount() {
   return (
     <div className="container">
       <h2>Delete my account</h2>
-      <p className="small">Enter the email you used to sign up. We\'ll email you a confirmation link to verify ownership before deletion.</p>
+      <p className="small">Enter the email you used to sign up. We'll email you a confirmation link to verify ownership before deletion.</p>
       <form onSubmit={onSubmit}>
         <input className="input" type="email" required placeholder="you@example.com" value={email} onChange={e=>setEmail(e.target.value)} />
         <div style={{ height: 12 }} />
@@ -34,7 +34,7 @@ export default function DeleteAccount() {
       </form>
       {status && <p className="success" style={{marginTop:12}}>{status}</p>}
       {error && <p className="error" style={{marginTop:12}}>{error}</p>}
-      <p className="small" style={{marginTop:16}}>Can\'t access your email? Contact <a href="mailto:contact@dotsbright.com">contact@dotsbright.com</a>.</p>
+      <p className="small" style={{marginTop:16}}>Can't access your email? Contact <a href="mailto:contact@dotsbright.com">contact@dotsbright.com</a>.</p>
     </div>
   );
 }
