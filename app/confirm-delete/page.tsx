@@ -1,8 +1,10 @@
 "use client";
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-export default function ConfirmDeletePage() {
+export const dynamic = 'force-dynamic';
+
+function ConfirmDeleteInner() {
   const sp = useSearchParams();
   const token = sp.get('token') || '';
   const [msg, setMsg] = useState<string>('');
@@ -43,5 +45,13 @@ export default function ConfirmDeletePage() {
       {msg && <p className="success" style={{marginTop:12}}>{msg}</p>}
       {err && <p className="error" style={{marginTop:12}}>{err}</p>}
     </div>
+  );
+}
+
+export default function ConfirmDeletePage() {
+  return (
+    <Suspense fallback={<div className="container"><p>Loading…</p></div>}>
+      <ConfirmDeleteInner />
+    </Suspense>
   );
 }
