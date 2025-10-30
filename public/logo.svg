@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 24 24" fill="none">
+  <!-- Background disc -->
+  <circle cx="12" cy="12" r="11.2" fill="#FFFFFF"/>
+
+  <!-- Scaled and centered inner icon (list + heart) -->
+  <g transform="translate(6.24 6.24) scale(0.48)">
+    <!-- Five horizontal lines (list) -->
+    <path fill="#1C274C" fill-rule="evenodd" clip-rule="evenodd"
+      d="M2.25 6C2.25 5.58579 2.58579 5.25 3 5.25H21C21.4142 5.25 21.75 5.58579 21.75 6C21.75 6.41421 21.4142 6.75 21 6.75H3C2.58579 6.75 2.25 6.41421 2.25 6Z"/>
+    <path fill="#1C274C" fill-rule="evenodd" clip-rule="evenodd"
+      d="M2.25 10C2.25 9.58579 2.58579 9.25 3 9.25H21C21.4142 9.25 21.75 9.58579 21.75 10C21.75 10.4142 21.4142 10.75 21 10.75H3C2.58579 10.75 2.25 10.4142 2.25 10Z"/>
+    <path fill="#1C274C" fill-rule="evenodd" clip-rule="evenodd"
+      d="M2.25 14C2.25 13.5858 2.58579 13.25 3 13.25H10C10.4142 13.25 10.75 13.5858 10.75 14C10.75 14.4142 10.4142 14.75 10 14.75H3C2.58579 14.75 2.25 14.4142 2.25 14Z"/>
+    <path fill="#1C274C" fill-rule="evenodd" clip-rule="evenodd"
+      d="M2.25 18C2.25 17.5858 2.58579 17.25 3 17.25H10C10.4142 17.25 10.75 17.5858 10.75 18C10.75 18.4142 10.4142 18.75 10 18.75H3C2.58579 18.75 2.25 18.4142 2.25 18Z"/>
+
+    <!-- Bordered heart (stroke only) -->
+    <g transform="translate(0 4)">
+      <path d="M13 11.7148C13 13.4674 15.1633 15.3304 16.4901 16.3082C16.9442 16.643 17.1713 16.8103 17.5 16.8103C17.8287 16.8103 18.0558 16.643 18.5099 16.3083C19.8367 15.3304 22 13.4674 22 11.7148C22 9.03759 19.5249 8.03807 17.5 10.1062C15.4751 8.03807 13 9.03759 13 11.7148Z"
+            fill="none" stroke="#FFA07A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,18 @@
+:root{--bg:#0b0b0b;--fg:#eaeaea;--muted:#9aa0a6;--accent:#3b82f6;}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.5;color:var(--fg);background:#111}
+main{max-width:900px;margin:0 auto;padding:24px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header,footer{max-width:900px;margin:0 auto;padding:16px 24px}
+.brand{display:inline-flex;align-items:center;gap:10px;color:var(--fg);text-decoration:none}
+.brand:hover{text-decoration:none;opacity:.95}
+.brand-logo{width:28px;height:28px;display:inline-block}
+.brand-title{font-weight:600;font-size:1.1rem}
+.container{background:#18181b;border:1px solid #2a2a2a;border-radius:12px;padding:20px}
+.btn{display:inline-block;background:var(--accent);color:white;border:none;padding:10px 14px;border-radius:8px;cursor:pointer}
+.input{width:100%;padding:10px;border-radius:8px;border:1px solid #333;background:#0f0f10;color:var(--fg)}
+.small{color:var(--muted);font-size:0.9rem}
+.success{color:#22c55e}
+.error{color:#ef4444}
