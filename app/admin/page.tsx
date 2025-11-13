@@ -46,7 +46,7 @@ export default async function AdminPage({ searchParams }: { searchParams: { q?: 
       .collection('users')
       .where('email', '>=', start)
       .where('email', '<=', end)
-      .orderBy('email')
+      .orderBy('email', 'desc')
       .limit(limitNum)
       .get();
 
@@ -64,8 +64,8 @@ export default async function AdminPage({ searchParams }: { searchParams: { q?: 
     }
   } else {
     if (effectivePlan === 'all') {
-      let qref = db.collection('users').orderBy('email').limit(limitNum);
-      if (effectiveAfter) qref = qref.startAfter(effectiveAfter);
+      let qref = db.collection('users').orderBy('createdAt', 'desc').limit(limitNum);
+      if (effectiveAfter) qref = qref.startAfter(Number(effectiveAfter));
       const snap = await qref.get();
       for (const d of snap.docs) {
         const data = d.data() as any;
@@ -81,16 +81,17 @@ export default async function AdminPage({ searchParams }: { searchParams: { q?: 
       }
       if (snap.docs.length === limitNum) {
         const last = snap.docs[snap.docs.length - 1];
-        nextCursor = (last.data() as any)?.email || null;
+        const lastCreated = (last.data() as any)?.createdAt ?? (last.data() as any)?.updatedAt ?? 0;
+        nextCursor = String(lastCreated);
       }
     } else if (effectivePlan === 'free') {
       let qref = db
         .collection('users')
         .where('level', '==', 0)
         .where('level_admin', '==', 0)
-        .orderBy('email')
+        .orderBy('createdAt', 'desc')
         .limit(limitNum);
-      if (effectiveAfter) qref = qref.startAfter(effectiveAfter);
+      if (effectiveAfter) qref = qref.startAfter(Number(effectiveAfter));
       const snap = await qref.get();
       for (const d of snap.docs) {
         const data = d.data() as any;
@@ -106,22 +107,23 @@ export default async function AdminPage({ searchParams }: { searchParams: { q?: 
       }
       if (snap.docs.length === limitNum) {
         const last = snap.docs[snap.docs.length - 1];
-        nextCursor = (last.data() as any)?.email || null;
+        const lastCreated = (last.data() as any)?.createdAt ?? (last.data() as any)?.updatedAt ?? 0;
+        nextCursor = String(lastCreated);
       }
     } else {
       // basic = any Pro (Play or Admin). Combine two queries.
-      let q1 = db.collection('users').where('level', '==', 1).orderBy('email').limit(limitNum);
-      if (effectiveAfter) q1 = q1.startAfter(effectiveAfter);
-      let q2 = db.collection('users').where('level_admin', '==', 1).orderBy('email').limit(limitNum);
-      if (effectiveAfter) q2 = q2.startAfter(effectiveAfter);
+      let q1 = db.collection('users').where('level', '==', 1).orderBy('createdAt', 'desc').limit(limitNum);
+      if (effectiveAfter) q1 = q1.startAfter(Number(effectiveAfter));
+      let q2 = db.collection('users').where('level_admin', '==', 1).orderBy('createdAt', 'desc').limit(limitNum);
+      if (effectiveAfter) q2 = q2.startAfter(Number(effectiveAfter));
       const [s1, s2] = await Promise.all([q1.get(), q2.get()]);
       const map = new Map<string, any>();
       for (const d of s1.docs) map.set(d.id, d);
       for (const d of s2.docs) map.set(d.id, d);
       const merged = Array.from(map.values()).sort((a, b) => {
-        const ea = String((a.data() as any)?.email || '').toLowerCase();
-        const eb = String((b.data() as any)?.email || '').toLowerCase();
-        return ea.localeCompare(eb);
+        const ca = Number((a.data() as any)?.createdAt ?? (a.data() as any)?.updatedAt ?? 0);
+        const cb = Number((b.data() as any)?.createdAt ?? (b.data() as any)?.updatedAt ?? 0);
+        return cb - ca; // desc by createdAt
       });
       const page = merged.slice(0, limitNum);
       for (const d of page) {
@@ -138,7 +140,8 @@ export default async function AdminPage({ searchParams }: { searchParams: { q?: 
       }
       if (merged.length >= limitNum) {
         const last = page[page.length - 1];
-        nextCursor = ((last.data() as any)?.email || '').toLowerCase();
+        const lastCreated = (last.data() as any)?.createdAt ?? (last.data() as any)?.updatedAt ?? 0;
+        nextCursor = String(lastCreated);
       }
     }
   }
