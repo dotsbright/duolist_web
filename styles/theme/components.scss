@@ -1,0 +1,52 @@
+/* Base defaults for common elements */
+@layer base {
+  input,
+  select,
+  textarea {
+    @apply bg-[var(--surface)] border border-[var(--border)] text-[var(--fg)] rounded-lg px-3 py-2;
+  }
+
+  a {
+    @apply text-[var(--accent)] underline-offset-2 hover:underline;
+  }
+}
+
+/* Component layer using @apply for reusable styles */
+@layer components {
+  .app-container { @apply mx-auto max-w-[900px] px-6; }
+  .brand {
+    @apply inline-flex items-center gap-2 no-underline text-[var(--fg)];
+  }
+  .brand:hover {
+    text-decoration: none;
+    opacity: .95;
+  }
+  .brand-logo {
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+  }
+  .brand-title {
+    @apply font-semibold text-[1.1rem];
+  }
+
+  .small {
+    @apply text-[0.9rem] text-[var(--muted)];
+  }
+
+  .input {
+    @apply w-full px-3 py-2 rounded-lg border bg-[var(--surface)] border-[var(--border)] text-[var(--fg)];
+  }
+
+  .btn {
+    @apply inline-block rounded-lg px-3 py-2 font-medium bg-[var(--accent)] text-[#0b0f17] hover:brightness-105;
+  }
+  .btn-neutral {
+    @apply inline-block rounded-lg px-2.5 py-1.5 border border-[var(--border)] text-[var(--fg)];
+  }
+
+  .card {
+    @apply w-full rounded-xl border border-[var(--border)] p-5 bg-[var(--surface-2)];
+  }
+  .card .prose { @apply max-w-none; }
+}

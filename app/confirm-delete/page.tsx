@@ -1,6 +1,7 @@
 "use client";
 import { Suspense, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import Card from '../components/ui/Card';
 
 export const dynamic = 'force-dynamic';
 
@@ -30,27 +31,28 @@ function ConfirmDeleteInner() {
   }
 
   return (
-    <div className="container">
-      <h2>Confirm account deletion</h2>
-      {!token && <p className="error">Missing or invalid link.</p>}
-      {token && (
-        <>
-          <p>
-            This will permanently delete your Duolist account and associated data (lists you own, partner links, and shared spaces).
-            This action cannot be undone.
-          </p>
-          <button className="btn" onClick={onConfirm} disabled={busy}>{busy ? 'Deleting…' : 'Confirm delete'}</button>
-        </>
-      )}
-      {msg && <p className="success" style={{marginTop:12}}>{msg}</p>}
-      {err && <p className="error" style={{marginTop:12}}>{err}</p>}
+    <div className="space-y-4">
+      <Card title="Confirm account deletion">
+        {!token && <p className="text-red-500">Missing or invalid link.</p>}
+        {token && (
+          <>
+            <p>
+              This will permanently delete your Duolist account and associated data (lists you own, partner links, and shared spaces).
+              This action cannot be undone.
+            </p>
+            <button className="btn" onClick={onConfirm} disabled={busy}>{busy ? 'Deleting…' : 'Confirm delete'}</button>
+          </>
+        )}
+        {msg && <p className="mt-3 text-green-500 text-sm">{msg}</p>}
+        {err && <p className="mt-3 text-red-500 text-sm">{err}</p>}
+      </Card>
     </div>
   );
 }
 
 export default function ConfirmDeletePage() {
   return (
-    <Suspense fallback={<div className="container"><p>Loading…</p></div>}>
+    <Suspense fallback={<div className="space-y-4"><div className="card"><p>Loading…</p></div></div>}>
       <ConfirmDeleteInner />
     </Suspense>
   );

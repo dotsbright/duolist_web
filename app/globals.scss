@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+
+/* Theme variables and component utilities */
+@import "../styles/theme/variables.scss";
+@import "../styles/theme/components.scss";
+
+/* Base tweaks */
+:root { color-scheme: light dark; }
+html, body { height: 100%; }
