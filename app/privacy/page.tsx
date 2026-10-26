@@ -13,7 +13,7 @@ export default function Privacy() {
 
           <h3>Data we collect</h3>
           <ul>
-            <li><b>Account:</b> When you sign in with Google, we receive your email address, display name, and a Firebase user ID. Your name and email are stored in your Duolist profile.</li>
+            <li><b>Account:</b> When you sign in with Google, Google shares your email address, display name, and profile picture with the app. We store your name, email, and a Firebase user ID in your Duolist profile; the profile picture is not stored.</li>
             <li><b>Content:</b> The lists and items you create — list names, item text, quantity, optional notes, completion state, priority, and timestamps. Each item records which account created or last changed it.</li>
             <li><b>Notification token:</b> A Firebase Cloud Messaging registration token for your device, so we can notify you when a shared list changes.</li>
             <li><b>Preferences:</b> Display settings such as your nickname, theme, sort order, and list order.</li>
