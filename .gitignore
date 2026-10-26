@@ -6,6 +6,7 @@ out/
 # Env files (keep secrets out of git)
 .env*
 !.env.example
+!.env.local.example
 
 # Vercel/hosting
 .vercel/
