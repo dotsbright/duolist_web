@@ -42,25 +42,11 @@ async function sendMail(to: string, subject: string, text: string, html?: string
 async function deleteUserData(uid: string) {
   const db = admin.firestore();
 
-  // 1) Delete user subtree: users/{uid}/prefs/*, shared_refs/*, spaces/* (+ items/*), then users/{uid}
+  // 1) Delete the whole user subtree — profile, prefs, spaces, items and any
+  // orphaned subcollections. recursiveDelete walks every child document, so a
+  // deleted list can never leave item documents behind.
   const userRef = db.collection('users').doc(uid);
-
-  const prefsSnap = await userRef.collection('prefs').get();
-  for (const d of prefsSnap.docs) await d.ref.delete();
-
-  const legacyRefsSnap = await userRef.collection('shared_refs').get();
-  for (const d of legacyRefsSnap.docs) await d.ref.delete();
-
-  const spacesSnap = await userRef.collection('spaces').get();
-  for (const space of spacesSnap.docs) {
-    const itemsSnap = await space.ref.collection('items').get();
-    for (const itm of itemsSnap.docs) await itm.ref.delete();
-    await space.ref.delete();
-  }
-
-  // Finally delete the user doc
-  const userDoc = await userRef.get();
-  if (userDoc.exists) await userRef.delete();
+  await db.recursiveDelete(userRef);
 
   // 2) Delete partner docs involving this user and their shared_spaces
   const partnersCol = db.collection('partners');
@@ -70,9 +56,7 @@ async function deleteUserData(uid: string) {
   for (const d of aQ.docs) toDelete.set(d.id, d);
   for (const d of bQ.docs) toDelete.set(d.id, d);
   for (const d of toDelete.values()) {
-    const sharedSpaces = await d.ref.collection('shared_spaces').get();
-    for (const s of sharedSpaces.docs) await s.ref.delete();
-    await d.ref.delete();
+    await db.recursiveDelete(d.ref);
   }
 }
 
