@@ -41,3 +41,4 @@ coverage/
 Makefile
 Makefile_fav.mk
 Makefile_local.mk
+.vercel
